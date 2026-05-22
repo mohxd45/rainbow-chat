@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #05010d;
+  color: white;
+  overflow-x: hidden;
+}
+
+.rainbow-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(236,72,153,.22), transparent 28%),
+    radial-gradient(circle at 90% 10%, rgba(34,211,238,.20), transparent 30%),
+    radial-gradient(circle at 55% 85%, rgba(132,204,22,.16), transparent 32%),
+    linear-gradient(135deg, #05010d 0%, #10041d 48%, #020617 100%);
+}
+
+.rainbow-bg::before,
+.rainbow-bg::after {
+  content: "";
+  position: absolute;
+  width: 75vw;
+  height: 75vw;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: .34;
+  animation: aurora 14s ease-in-out infinite alternate;
+}
+
+.rainbow-bg::before {
+  left: -20vw;
+  top: -18vw;
+  background: conic-gradient(from 120deg, #ff2d95, #7c3aed, #22d3ee, #22c55e, #facc15, #ff2d95);
+}
+
+.rainbow-bg::after {
+  right: -25vw;
+  bottom: -24vw;
+  background: conic-gradient(from 20deg, #22d3ee, #a855f7, #fb7185, #facc15, #34d399, #22d3ee);
+  animation-delay: -4s;
+}
+
+.glass {
+  border: 1px solid rgba(255,255,255,.13);
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.045));
+  box-shadow: 0 24px 90px rgba(0,0,0,.28);
+  backdrop-filter: blur(22px);
+}
+
+.neon-border {
+  position: relative;
+}
+
+.neon-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, #ff2d95, #8b5cf6, #22d3ee, #22c55e, #facc15, #ff2d95);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .85;
+  pointer-events: none;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 99px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+@keyframes neonFlash {
+  0% {
+    border-color: rgba(34, 211, 238, 0.8);
+    background-color: rgba(34, 211, 238, 0.25);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.7);
+  }
+  50% {
+    border-color: rgba(34, 211, 238, 0.5);
+    background-color: rgba(34, 211, 238, 0.15);
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+.neon-flash-highlight {
+  animation: neonFlash 1.8s ease-out;
+}

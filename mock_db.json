@@ -1,0 +1,106 @@
+{
+  "collections": {
+    "users": [
+      {
+        "anonymousName": "PixelDragon828",
+        "avatar": "🦅",
+        "createdAt": "2026-05-21T19:36:36.811Z",
+        "lastActive": "2026-05-21T19:36:36.811Z",
+        "banned": false,
+        "ipAddress": "2.49.184.8",
+        "id": "mock_uid_9ud7wbju"
+      },
+      {
+        "anonymousName": "NovaRabbit771",
+        "avatar": "🐺",
+        "deviceInfo": "Windows PC",
+        "createdAt": "2026-05-21T19:38:18.155Z",
+        "lastActive": "2026-05-21T19:38:18.155Z",
+        "banned": false,
+        "ipAddress": "2.49.184.8",
+        "id": "mock_uid_r4dzbrmz"
+      },
+      {
+        "anonymousName": "AuroraOtter534",
+        "avatar": "🐺",
+        "deviceInfo": "Windows PC",
+        "createdAt": "2026-05-21T19:38:39.451Z",
+        "lastActive": "2026-05-21T19:38:39.451Z",
+        "banned": false,
+        "ipAddress": "2.49.184.8",
+        "id": "mock_uid_l3hiwnd1"
+      },
+      {
+        "anonymousName": "CyberPhoenix629",
+        "avatar": "🐯",
+        "deviceInfo": "Windows PC",
+        "deviceFingerprint": "fp_5jxtlm",
+        "createdAt": "2026-05-21T19:56:02.460Z",
+        "lastActive": "2026-05-21T19:56:02.460Z",
+        "banned": false,
+        "ipAddress": "2001:8f8:1361:c0:41b4:5ef4:1d91:fa52",
+        "id": "mock_uid_s42hh2v1"
+      }
+    ],
+    "rooms": [
+      {
+        "activeUsers": -1,
+        "id": "4l23es23p4p"
+      },
+      {
+        "name": "ffff",
+        "description": "",
+        "type": "public",
+        "roomCode": "UHAORN",
+        "createdBy": "mock_uid_r4dzbrmz",
+        "createdAt": "2026-05-21T19:38:24.417Z",
+        "activeUsers": 3,
+        "isActive": true,
+        "id": "zwh5lzcsyj"
+      }
+    ],
+    "rooms/zwh5lzcsyj/messages": [
+      {
+        "text": "",
+        "senderId": "mock_uid_r4dzbrmz",
+        "senderName": "NovaRabbit771",
+        "senderAvatar": "🐺",
+        "createdAt": "2026-05-21T19:38:32.113Z",
+        "deleted": false,
+        "reported": false,
+        "audioUrl": "/uploads/1779392311749-285052741.webm",
+        "audioDuration": 3,
+        "id": "kgfravq54ol"
+      },
+      {
+        "text": "hellll",
+        "senderId": "mock_uid_l3hiwnd1",
+        "senderName": "AuroraOtter534",
+        "senderAvatar": "🐺",
+        "createdAt": "2026-05-21T19:39:55.883Z",
+        "deleted": false,
+        "reported": false,
+        "id": "2ka41r7uz6g"
+      },
+      {
+        "text": "",
+        "senderId": "mock_uid_l3hiwnd1",
+        "senderName": "AuroraOtter534",
+        "senderAvatar": "🐺",
+        "createdAt": "2026-05-21T19:40:04.204Z",
+        "deleted": false,
+        "reported": false,
+        "imageUrl": "/uploads/1779392403943-971357880.png",
+        "id": "ujw4zgh07i8"
+      }
+    ],
+    "rooms/zwh5lzcsyj/typing": [
+      {
+        "username": "AuroraOtter534",
+        "isTyping": false,
+        "updatedAt": "2026-05-21T19:40:04.718Z",
+        "id": "mock_uid_l3hiwnd1"
+      }
+    ]
+  }
+}
