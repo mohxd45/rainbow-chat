@@ -59,6 +59,8 @@ export const db = useRealFirebase ? getFirestore(app!) : ({ name: "mock-firestor
 export const storage = useRealFirebase ? getStorage(app!) : null;
 
 export async function uploadFile(file: File): Promise<string> {
+  let primaryError: any = null;
+
   if (useRealFirebase && storage) {
     try {
       const uploadPromise = (async () => {
@@ -68,27 +70,36 @@ export async function uploadFile(file: File): Promise<string> {
       })();
 
       const timeoutPromise = new Promise<string>((_, reject) =>
-        setTimeout(() => reject(new Error("Firebase Storage upload timed out after 5s")), 5000)
+        setTimeout(() => reject(new Error("Firebase Storage upload timed out after 30s")), 30000)
       );
 
       return await Promise.race([uploadPromise, timeoutPromise]);
-    } catch (err) {
-      console.warn("Firebase Storage upload failed or timed out. Falling back to local server upload.", err);
+    } catch (err: any) {
+      primaryError = err;
+      console.warn("Firebase Storage upload failed or timed out. Attempting local server fallback.", err);
     }
   }
 
-  const formData = new FormData();
-  formData.append("file", file);
-  const res = await fetch("/api/upload", {
-    method: "POST",
-    body: formData,
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || "Failed to upload file to local server");
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || "Failed to upload file to local server");
+    }
+    const data = await res.json();
+    return data.url;
+  } catch (fallbackErr: any) {
+    console.error("Local fallback upload failed too:", fallbackErr);
+    if (primaryError) {
+      throw new Error(`Firebase Storage Error: ${primaryError.message || primaryError}`);
+    }
+    throw fallbackErr;
   }
-  const data = await res.json();
-  return data.url;
 }
 
 // --- Mock Classes for Firestore emulator ---
