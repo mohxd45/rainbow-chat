@@ -33,8 +33,20 @@ export default function ChatRoomPage() {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const prevMessageCountRef = useRef(0);
   const { isDisguised } = useStealth();
+  const [isAdminAuthorized, setIsAdminAuthorized] = useState(false);
 
-  const isAdmin = useMemo(() => !!room && !!appUser && room.createdBy === appUser.uid, [room, appUser]);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const authorized = 
+        sessionStorage.getItem("admin_authorized") === "true" ||
+        localStorage.getItem("admin_authorized") === "true";
+      setIsAdminAuthorized(authorized);
+    }
+  }, []);
+
+  const isAdmin = useMemo(() => {
+    return !!room && !!appUser && ((room.createdBy === appUser.uid) || isAdminAuthorized);
+  }, [room, appUser, isAdminAuthorized]);
 
   // Soft synth popup sound notification
   const playSoftNotification = () => {
@@ -391,7 +403,13 @@ export default function ChatRoomPage() {
             <div className="mt-5 border-t border-white/10 pt-4 space-y-3 text-xs text-white/50">
               <div>
                 <span className="font-semibold text-white/70">Created By:</span>
-                <p className="font-mono mt-0.5 truncate text-[10px]">{room.createdBy === appUser.uid ? "You (Admin)" : "Anonymous Creator"}</p>
+                <p className="font-mono mt-0.5 truncate text-[10px]">
+                  {room.createdBy === appUser.uid 
+                    ? "You (Creator)" 
+                    : isAdminAuthorized 
+                      ? "Anonymous Creator (Global Admin)" 
+                      : "Anonymous Creator"}
+                </p>
               </div>
               <div>
                 <span className="font-semibold text-white/70">Room Code:</span>

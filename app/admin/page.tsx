@@ -32,8 +32,9 @@ export default function AdminPage() {
   // Check if admin is already logged in locally in this session
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const authState = sessionStorage.getItem("admin_authorized");
-      if (authState === "true") {
+      const authState = sessionStorage.getItem("admin_authorized") === "true" ||
+                        localStorage.getItem("admin_authorized") === "true";
+      if (authState) {
         setIsAuthorized(true);
       }
     }
@@ -47,6 +48,7 @@ export default function AdminPage() {
       setError("");
       if (typeof window !== "undefined") {
         sessionStorage.setItem("admin_authorized", "true");
+        localStorage.setItem("admin_authorized", "true");
       }
     } else {
       setError("Incorrect Passkey. Please try again.");
@@ -58,6 +60,7 @@ export default function AdminPage() {
     setPasskey("");
     if (typeof window !== "undefined") {
       sessionStorage.removeItem("admin_authorized");
+      localStorage.removeItem("admin_authorized");
     }
   };
 
@@ -357,12 +360,21 @@ export default function AdminPage() {
                           {room.createdBy}
                         </td>
                         <td className="py-3.5 pr-3 text-right">
-                          <button
-                            onClick={() => handleDeleteRoom(room.id)}
-                            className="inline-flex items-center gap-1 rounded-lg bg-red-500/10 border border-red-500/25 px-3 py-1.5 text-xs font-semibold text-red-200 transition hover:bg-red-500/20"
-                          >
-                            <Trash2 className="h-3.5 w-3.5" /> Delete
-                          </button>
+                          <div className="flex justify-end gap-2">
+                            <Link href={`/rooms/${room.id}`}>
+                              <button
+                                className="inline-flex items-center gap-1 rounded-lg bg-cyan-500/10 border border-cyan-500/25 px-3 py-1.5 text-xs font-semibold text-cyan-200 transition hover:bg-cyan-500/20"
+                              >
+                                Join
+                              </button>
+                            </Link>
+                            <button
+                              onClick={() => handleDeleteRoom(room.id)}
+                              className="inline-flex items-center gap-1 rounded-lg bg-red-500/10 border border-red-500/25 px-3 py-1.5 text-xs font-semibold text-red-200 transition hover:bg-red-500/20"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" /> Delete
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
