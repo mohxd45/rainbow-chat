@@ -39,8 +39,16 @@ const firebaseConfig = {
 };
 
 // Check if we should use the mock client database
-const isDummyKey = !firebaseConfig.apiKey || firebaseConfig.apiKey.startsWith("AIzaSyDummyKey");
-export const useRealFirebase = !isDummyKey;
+const isConfigIncomplete =
+  !firebaseConfig.apiKey ||
+  !firebaseConfig.authDomain ||
+  !firebaseConfig.projectId ||
+  !firebaseConfig.storageBucket ||
+  !firebaseConfig.messagingSenderId ||
+  !firebaseConfig.appId ||
+  firebaseConfig.apiKey.startsWith("AIzaSyDummyKey");
+
+export const useRealFirebase = !isConfigIncomplete;
 
 export const app = useRealFirebase
   ? (getApps().length ? getApps()[0] : initializeApp(firebaseConfig))
